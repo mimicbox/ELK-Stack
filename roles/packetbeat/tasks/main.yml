@@ -1,0 +1,31 @@
+---
+    
+    - name: Install libpcap0.8 if not present
+      apt:
+        update_cache: yes
+        name: libpcap0.8
+        state: present
+
+    - name: Download Packetbeat .deb package
+      get_url:
+        url: https://artifacts.elastic.co/downloads/beats/packetbeat/packetbeat-7.6.1-amd64.deb 
+        dest: /tmp
+
+    - name: Install Packetbeat .deb package
+      command: dpkg -i --force-confnew /tmp/packetbeat-7.6.1-amd64.deb
+
+    - name: Copy Packetbeat config file to VM
+      copy:
+        src: packetbeat-config.yml
+        dest: /etc/packetbeat/packetbeat.yml
+
+    - name: Setup Packetbeat
+      command: packetbeat setup
+
+    - name: Start Packetbeat and enable on startup
+      service:
+        name: packetbeat
+        state: started
+        enabled: yes
+
+

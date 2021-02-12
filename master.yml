@@ -1,0 +1,20 @@
+---
+  - name: Setup ELK VM (Install ELK stack container and heartbeat)
+    hosts: elkserver
+    remote_user: elkadmin
+    become: yes
+    roles:  
+      - elk
+      - heartbeat
+  
+  - name: Set up Web VMs (Install dvwa container and approiate beats for ELK VM)
+    hosts: webservers
+    remote_user: redadmin
+    become: yes
+    roles:
+      - dvwa
+      - filebeat
+      - auditbeat
+      - packetbeat
+      - metricbeat
+      

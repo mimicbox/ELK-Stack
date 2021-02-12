@@ -1,0 +1,33 @@
+---
+ 
+
+    - name: Download Heartbeat .deb package
+      get_url:
+        url: https://artifacts.elastic.co/downloads/beats/heartbeat/heartbeat-7.6.1-amd64.deb
+        dest: /tmp
+        
+    - name: Install Heartbeat .deb package
+      command: dpkg -i --force-confnew  /tmp/heartbeat-7.6.1-amd64.deb
+
+    - name: Copy Heartbeat config file to VM
+      copy:
+        src: heartbeat-config.yml
+        dest: /etc/heartbeat/heartbeat.yml
+
+    - name: Setup Heartbeat
+      command: heartbeat setup
+
+    - name: Restart Heartbeat if already installed in order to reload configuration file
+      service:
+        name: heartbeat-elastic
+        state: restarted
+    
+    - name: Start Heartbeat and enable it on reboot
+      service:
+       name: heartbeat-elastic
+       state: started
+       enabled: yes
+
+   
+
+
