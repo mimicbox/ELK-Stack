@@ -4,7 +4,6 @@
       #The container has apache2 and will cause conflicts if not removed
     - name: Uninstall apache2 if present
       apt:
-       update_cache: yes
        name: apache2
        state: absent
 
