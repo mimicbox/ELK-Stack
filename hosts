@@ -17,16 +17,17 @@
 
 # Ex 2: A collection of hosts belonging to the 'webservers' group
 
+# Web VMs to be loaded with dvwa and beats
 [webservers]
 10.0.0.5 ansible_user=redadmin ansible_python_interpreter=/usr/bin/python3
 10.0.0.6 ansible_user=redadmin ansible_python_interpreter=/usr/bin/python3
 10.0.0.8 ansible_user=redadmin ansible_python_interpreter=/usr/bin/python3
 10.0.0.9 ansible_user=redadmin ansible_python_interpreter=/usr/bin/python3
 10.0.0.10 ansible_user=redadmin ansible_python_interpreter=/usr/bin/python3
-10.0.0.11 ansible_user=redadmin ansible_python_interpreter=/usr/bin/python3
 
 
 
+# VM to be used as ELK stack along with heartbeat
 [elkserver]
 10.1.0.4 ansible_user=elkadmin ansible_python_interpreter=/usr/bin/python3
 
