@@ -11,8 +11,8 @@ This document contains the following details:
 - Description of the Topology
 - Access Policies
 - ELK Configuration
-  - Beats in Use
-  - Machines Being Monitored
+- Beats in Use
+- Machines Being Monitored
 - How to Use the Ansible Build
 
 
@@ -91,7 +91,11 @@ We have installed the following Beats on these machines:
 **Note**: The ELK-Server has heartbeat installed for up-time metrics as it is advised to install this on a machine not intended to be monitored
 
 These Beats allow us to collect the following information from each machine:
-- _TODO: In 1-2 sentences, explain what kind of data each beat collects, and provide 1 example of what you expect to see. E.g., `Winlogbeat` collects Windows logs, which we use to track user logon events, etc._
+- Filebeat: Collects and forwards system log data to Elk-Server
+- Metricbeat: Monitors system metrics like CPU usage, memory, and network acticvity. We have enabled the docker module to watch our DVWA containers as well
+- Auditbeat: Interacts directly with and forwards logs from auditd, a system daemon that watches for system changes. It will log file intregity for files found in /etc /usr/bin /bin /usr/sbin and /sbin
+- Packetbeat: Analyzes network traffic between systems, sniffing packets providing user with network information
+- Heartbeat: Monitors up-time of systems. Will ping each machine on the network on a regular schedule and logs repsonses
 
 ### Using the Playbook
 In order to use the playbook, you will need to have an Ansible control node already configured. Assuming you have such a control node provisioned: 
