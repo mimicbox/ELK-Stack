@@ -41,11 +41,11 @@ The configuration details of each machine may be found below.
 
 ### Access Policies
 
-The machines on the internal network are not exposed to the public Internet. 
+The machines on the internal rednet network are not exposed to the public Internet. 
 
 Only the Jump-Box machine can accept connections from the Internet. Access to this machine is only allowed from the public workstation IP detailed in RedTeam-SG.
 
-Machines within the network can only be accessed by ssh.
+Machines within the rednet network can only be accessed by ssh.
 
 A summary of the access policies in place can be found in the table below.
 
@@ -58,17 +58,20 @@ A summary of the access policies in place can be found in the table below.
 
 ### Elk Configuration
 
-Ansible was used to automate configuration of the ELK machine. No configuration was performed manually, which is advantageous because...
-- _TODO: What is the main advantage of automating configuration with Ansible?_
+Ansible was used to automate configuration of the ELK machine. This allows the use of infrastructure as code. Allowing the user to scale their network as large as they want. This also grants the user the ability to modify only a few files and change the configuration of every machine on the network.
+
 
 The playbook implements the following tasks:
-- _TODO: In 3-5 bullets, explain the steps of the ELK installation play. E.g., install Docker; download image; etc._
-- ...
-- ...
+- Set up the ELK-Server with an ELK stack docker container
+- Install each web VM with a docker container with an instance of DVWA
+- Install Heartbeat on the ELK-VM for up-time metrics
+- Install Filebeat, Auditbeat, Packetbeat, and Metricbeat on each web VM
+- Configures each machine to send logs to the ELK-Server
+- Updates each machine to current packages to ensure system security
 
-The following screenshot displays the result of running `docker ps` after successfully configuring the ELK instance.
+The following screenshot displays the result of running `docker ps` on the Elk-Server after successfully configuring the ELK instance.
 
-![TODO: Update the path with the name of your screenshot of docker ps output](Images/docker_ps_output.png)
+![Elk container Image](elk_container.png)
 
 ### Target Machines & Beats
 This ELK server is configured to monitor the following machines:
