@@ -28,7 +28,6 @@ Integrating an ELK server allows users to easily monitor the vulnerable VMs for 
 - _TODO: What does Metricbeat record?_
 
 The configuration details of each machine may be found below.
-_Note: Use the [Markdown Table Generator](http://www.tablesgenerator.com/markdown_tables) to add/remove values from the table_.
 
 | Name         | Function                                   | Private IP Address | Operating System         |
 |--------------|--------------------------------------------|--------------------|--------------------------|
@@ -38,24 +37,24 @@ _Note: Use the [Markdown Table Generator](http://www.tablesgenerator.com/markdow
 | web-backup   | DVWA server                                | 10.0.0.8           | Linux (Ubuntu 18.04 LTS) |
 | DVWA-Backup1 | DVWA server                                | 10.0.0.9           | Linux (Ubuntu 18.04 LTS) |
 | DVWA-Backup2 | DVWA server                                | 10.0.0.10          | Linux (Ubuntu 18.04 LTS) |
+| ELK-Server   | Hosts ELK docker container and heartbeat   | 10.1.0.4           | Linux (Ubuntu 18.04 LTS) |
 
 ### Access Policies
 
 The machines on the internal network are not exposed to the public Internet. 
 
-Only the _____ machine can accept connections from the Internet. Access to this machine is only allowed from the following IP addresses:
-- _TODO: Add whitelisted IP addresses_
+Only the Jump-Box machine can accept connections from the Internet. Access to this machine is only allowed from the public workstation IP detailed in RedTeam-SG.
 
-Machines within the network can only be accessed by _____.
-- _TODO: Which machine did you allow to access your ELK VM? What was its IP address?_
+Machines within the network can only be accessed by ssh.
 
 A summary of the access policies in place can be found in the table below.
 
-| Name     | Publicly Accessible | Allowed IP Addresses |
-|----------|---------------------|----------------------|
-| Jump Box | Yes/No              | 10.0.0.1 10.0.0.2    |
-|          |                     |                      |
-|          |                     |                      |
+| Name              | Publicly Accessible | Allowed IP Addresses            |
+|-------------------|---------------------|---------------------------------|
+| Jump-Box          | Yes                 | workstation public IP port 22   |
+| Web VMs           | No                  | 10.0.0.4 port 22                |
+| Red_Load_Balancer | Yes                 | workstation public IP port 80   |
+| ELK-Server        | Yes                 | workstation public IP port 5601 |
 
 ### Elk Configuration
 
