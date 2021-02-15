@@ -6,22 +6,21 @@ The files in this repository were used to configure the network depicted below.
 
 These files have been tested and used to generate a live ELK deployment on Azure. They can be used to either recreate the entire deployment pictured above. Alternatively, setup.yml can be modified or run with tags to install certain pieces of the infrastructure to your liking.
 
-  - _TODO: Enter the playbook file._
 
 This document contains the following details:
-- Description of the Topologu
+- Description of the Topology
 - Access Policies
 - ELK Configuration
-  - Beats in Use
-  - Machines Being Monitored
+- Beats in Use
+- Machines Being Monitored
 - How to Use the Ansible Build
 
 
 ### Description of the Topology
 
-The main purpose of this network is to expose a load-balanced and monitored instance of DVWA, the D*mn Vulnerable Web Application.
+The main purpose of this network is to expose a load-balanced and monitored instance of DVWA, the Damn Vulnerable Web Application.
 
-Load balancing ensures that the application will be highly _____, in addition to restricting _____ to the network.
+Load balancing ensures that the application will be highly available, in addition to restricting access to the network.
 - _TODO: What aspect of security do load balancers protect? What is the advantage of a jump box?_
 
 Integrating an ELK server allows users to easily monitor the vulnerable VMs for changes to the _____ and system _____.
@@ -29,56 +28,74 @@ Integrating an ELK server allows users to easily monitor the vulnerable VMs for 
 - _TODO: What does Metricbeat record?_
 
 The configuration details of each machine may be found below.
-_Note: Use the [Markdown Table Generator](http://www.tablesgenerator.com/markdown_tables) to add/remove values from the table_.
 
-| Name     | Function | IP Address | Operating System |
-|----------|----------|------------|------------------|
-| Jump Box | Gateway  | 10.0.0.1   | Linux            |
-| TODO     |          |            |                  |
-| TODO     |          |            |                  |
-| TODO     |          |            |                  |
+| Name         | Function                                   | Private IP Address | Operating System         |
+|--------------|--------------------------------------------|--------------------|--------------------------|
+| Jump-Box     | Ansible provisioner and admin access point | 10.0.0.4           | Linux (Ubuntu 18.04 LTS) |
+| Web-1        | DVWA server                                | 10.0.0.5           | Linux (Ubuntu 18.04 LTS) |
+| Web-2        | DVWA server                                | 10.0.0.6           | Linux (Ubuntu 18.04 LTS) |
+| web-backup   | DVWA server                                | 10.0.0.8           | Linux (Ubuntu 18.04 LTS) |
+| DVWA-Backup1 | DVWA server                                | 10.0.0.9           | Linux (Ubuntu 18.04 LTS) |
+| DVWA-Backup2 | DVWA server                                | 10.0.0.10          | Linux (Ubuntu 18.04 LTS) |
+| ELK-Server   | Hosts ELK docker container and heartbeat   | 10.1.0.4           | Linux (Ubuntu 18.04 LTS) |
 
 ### Access Policies
 
-The machines on the internal network are not exposed to the public Internet. 
+The machines on the internal rednet network are not exposed to the public Internet. 
 
-Only the _____ machine can accept connections from the Internet. Access to this machine is only allowed from the following IP addresses:
-- _TODO: Add whitelisted IP addresses_
+Only the Jump-Box machine can accept connections from the Internet. Access to this machine is only allowed from the public workstation IP detailed in RedTeam-SG.
 
-Machines within the network can only be accessed by _____.
-- _TODO: Which machine did you allow to access your ELK VM? What was its IP address?_
+Machines within the rednet network can only be accessed by ssh.
 
 A summary of the access policies in place can be found in the table below.
 
-| Name     | Publicly Accessible | Allowed IP Addresses |
-|----------|---------------------|----------------------|
-| Jump Box | Yes/No              | 10.0.0.1 10.0.0.2    |
-|          |                     |                      |
-|          |                     |                      |
+| Name              | Publicly Accessible | Allowed IP Addresses            |
+|-------------------|---------------------|---------------------------------|
+| Jump-Box          | Yes                 | workstation public IP port 22   |
+| Web VMs           | No                  | 10.0.0.4 port 22                |
+| Red_Load_Balancer | Yes                 | workstation public IP port 80   |
+| ELK-Server        | Yes                 | workstation public IP port 5601 |
 
 ### Elk Configuration
 
-Ansible was used to automate configuration of the ELK machine. No configuration was performed manually, which is advantageous because...
-- _TODO: What is the main advantage of automating configuration with Ansible?_
+Ansible was used to automate configuration of the ELK machine. This allows the use of infrastructure as code. Allowing the user to scale their network as large as they want. This also grants the user the ability to modify only a few files and change the configuration of every machine on the network.
+
 
 The playbook implements the following tasks:
-- _TODO: In 3-5 bullets, explain the steps of the ELK installation play. E.g., install Docker; download image; etc._
-- ...
-- ...
+- Set up the ELK-Server with an ELK stack docker container
+- Install each web VM with a docker container with an instance of DVWA
+- Install Heartbeat on the ELK-VM for up-time metrics
+- Install Filebeat, Auditbeat, Packetbeat, and Metricbeat on each web VM
+- Configures each machine to send logs to the ELK-Server
+- Updates each machine to current packages to ensure system security
 
-The following screenshot displays the result of running `docker ps` after successfully configuring the ELK instance.
+The following screenshot displays the result of running `docker ps` on the Elk-Server after successfully configuring the ELK instance.
 
-![TODO: Update the path with the name of your screenshot of docker ps output](Images/docker_ps_output.png)
+![Elk container Image](Images/elk_container.png)
 
 ### Target Machines & Beats
 This ELK server is configured to monitor the following machines:
-- _TODO: List the IP addresses of the machines you are monitoring_
+ 
+- Web-1 10.0.0.5
+- Web-2 10.0.0.6
+- web-backup 10.0.0.8
+- DVWA-Backup1 10.0.0.9
+- DVWA-Backup2 10.0.0.10
 
 We have installed the following Beats on these machines:
-- _TODO: Specify which Beats you successfully installed_
+- Filebeat
+- Metricbeat
+- Auditbeat
+- Packetbeat
+
+**Note**: The ELK-Server has heartbeat installed for up-time metrics as it is advised to install this on a machine not intended to be monitored
 
 These Beats allow us to collect the following information from each machine:
-- _TODO: In 1-2 sentences, explain what kind of data each beat collects, and provide 1 example of what you expect to see. E.g., `Winlogbeat` collects Windows logs, which we use to track user logon events, etc._
+- Filebeat: Collects and forwards system log data to Elk-Server
+- Metricbeat: Monitors system metrics like CPU usage, memory, and network acticvity. We have enabled the docker module to watch our DVWA containers as well
+- Auditbeat: Interacts directly with and forwards logs from auditd, a system daemon that watches for system changes. It will log file intregity for files found in /etc /usr/bin /bin /usr/sbin and /sbin
+- Packetbeat: Analyzes network traffic between systems, sniffing packets providing user with network information
+- Heartbeat: Monitors up-time of systems. Will ping each machine on the network on a regular schedule and logs repsonses
 
 ### Using the Playbook
 In order to use the playbook, you will need to have an Ansible control node already configured. Assuming you have such a control node provisioned: 
