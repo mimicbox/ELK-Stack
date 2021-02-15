@@ -128,6 +128,8 @@ If you wish to just install any combination of beats and not the above five all 
 - First run the [setup.yml](setup.yml) playbook using tags elk and dvwa as such : `ansible-playbook setup.yml -t=elk,dvwa`
 - Then run `ansible-playbook custom.yml -t=<any_combination_of_beats_you_want>` (the flag `-t=filebeat,heartbeat` will install just filebeat and heartbeat as an example)
 
+### Automating cloud network updates
+
 If you wish to update all your machines at once through apt for the most up to date packages on your cloud network you can also use the Ansible provisioner to do so!
 
 - Run the [update_machines.yml](update_machines.yml) playbook
