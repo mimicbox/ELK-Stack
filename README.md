@@ -103,7 +103,7 @@ SSH into the control node and follow the steps below:
 - Update the configuration file found in each `/etc/ansible/roles/files` directory for each beat to include the IP address of your elkserver under Kibana and Outputs categories. Below is an example:
 ![Example config file](Images/config.png)
 ![Example config file](Images/config2.png)
-- Run the setup.yml playbook, and navigate to http://<elkserver_ip>:5601 and http://<load_balancerip> to check that the installation worked as expected. Kibana and DVWA should load respectively.
+- Run the [setup.yml](setup.yml) playbook, and navigate to http://<elkserver_ip>:5601 and http://<load_balancerip> to check that the installation worked as expected. Kibana and DVWA should load respectively.
 
 **Note** : If heartbeat is intended to be installed modify the [heartbeat-config.yml](roles/heartbeat/files/heartbeat-config.yml) further as such:
 
@@ -122,17 +122,17 @@ You can specify what parts of the playbook to run using the supplied tags:
 - `ansible-playbook setup.yml --skip-tags=elk,heartbeat` will skip installing the ELK stack and heartbeat but will install DVWA containers and the other beats services.
 
 **Note** : 
-If you wish to just install any combination of beats and not the above five all at once you can use the custom.yml playbook. 
+If you wish to just install any combination of beats and not the above five all at once you can use the [custom.yml](custom.yml) playbook. 
 
-- First run the setup.yml playbook using tags elk and dvwa as such : `ansible-playbook setup.yml -t=elk,dvwa`
+- First run the [setup.yml](setup.yml) playbook using tags elk and dvwa as such : `ansible-playbook setup.yml -t=elk,dvwa`
 - Then run `ansible-playbook custom.yml -t=<any_combination_of_beats_you_want>` (the flag `-t=filebeat,heartbeat` will install just filebeat and heartbeat as an example)
 
 If you wish to update all your machines at once through apt for the most up to date packages on your cloud network you can also use the Ansible provisioner to do so!
 
-- Run the update-machines.yml playbook
+- Run the [update_machines.yml](update_machines.yml) playbook
 - You can supply either tag of webvms or elk to just update the respective machines
 
-If you want to update config files for the beats services and the changes to take effect on all VMs across your cloud network you can run update-config.yml.
+If you want to update config files for the beats services and the changes to take effect on all VMs across your cloud network you can run [update_config.yml](update_config.yml).
 
 - Update the desired config file in `/etc/ansible/roles/<desired_beat>/files/`
 - Run the update-config.yml playbook with a supplied tag for beat service to be updated. You can update one, multiple, or all machines this way. Ansible will reload the config file and restart the service.
