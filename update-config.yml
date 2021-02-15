@@ -16,7 +16,7 @@
     hosts: webservers
     remote_user: redadmin
     become: yes
-    tags: filbeat
+    tags: filebeat
     tasks:
       - copy:
           src: /etc/ansible/roles/filebeat/files/filebeat-config.yml
@@ -62,7 +62,4 @@
           dest: /etc/packetbeat/packetbeat.yml
       - service:
           name: packetbeat
-          state: restarted
-
-          
-
+          state: restarted         

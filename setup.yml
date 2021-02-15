@@ -1,7 +1,6 @@
 ---
   - name: Setup ELK VM 
     hosts: elkserver
-    remote_user: elkadmin
     become: yes
     tags: elk
     roles:  
@@ -10,7 +9,6 @@
   
   - name: Install heartbeat on ELK VM
     hosts: elkserver
-    remote_user: elkadmin
     become: yes
     tags: heartbeat
     roles:
@@ -18,7 +16,6 @@
   
   - name: Set up Web VMs with dvwa
     hosts: webservers
-    remote_user: redadmin
     become: yes
     tags: dvwa
     roles:
@@ -27,7 +24,6 @@
       
   - name: Install beats on Web VMs
     hosts: webservers
-    remote_user: redadmin
     become: yes
     tags: beats
     roles:
@@ -35,4 +31,4 @@
       - auditbeat
       - packetbeat
       - metricbeat
-      
+  
