@@ -22,7 +22,7 @@ The main purpose of this network is to expose a load-balanced and monitored inst
 
 Load balancing ensures that the application will be highly available, in addition to restricting access to the network.
 
-Integrating an ELK server allows users to easily monitor the vulnerable VMs for changes to the essential system files, suspicious web activity, up-time and system metrics.
+Integrating an ELK server allows users to easily monitor the vulnerable VMs for changes to the essential system files, suspicious web activity, up-time, system metrics, and system logs.
 
 The configuration details of each machine may be found below.
 
@@ -84,7 +84,7 @@ We have installed the following Beats on these machines:
 - Auditbeat
 - Packetbeat
 
-**Note**: The ELK-Server has heartbeat installed for up-time metrics as it is advised to install this on a machine not intended to be monitored
+**Note**: The ELK-Server has heartbeat installed for up-time metrics as it is advised to install this on a machine not intended to be monitored.
 
 These Beats allow us to collect the following information from each machine:
 - Filebeat: Collects and forwards system log data to Elk-Server
@@ -117,19 +117,40 @@ You can specify what parts of the playbook to run using the supplied tags:
 - dvwa: Sets up just the DVWA docker container on the web VMs
 - beats: Installs filebeat, auditbeat, packetbeat, and metricbeat on web VMs
 
+**Example tag usage** : 
+- `ansible-playbook setup.yml -t=elk,dvwa` will install the ELK stack and the DVWA containers on the web VMs and will not install any beats.
+- `ansible-playbook setup.yml --skip-tags=elk,heartbeat` will skip installing the ELK stack and heartbeat but will install DVWA containers and the other beats services.
+
 **Note** : 
 If you wish to just install any combination of beats and not the above five all at once you can use the custom.yml playbook. 
 
 - First run the setup.yml playbook using tags elk and dvwa as such : `ansible-playbook setup.yml -t=elk,dvwa`
 - Then run `ansible-playbook custom.yml -t=<any_combination_of_beats_you_want>` (the flag `-t=filebeat,heartbeat` will install just filebeat and heartbeat as an example)
 
+If you wish to update all your machines at once through apt for the most up to date packages on your cloud network you can also use the Ansible provisioner to do so!
+
+- Run the update-machines.yml playbook
+- You can supply either tag of webvms or elk to just update the respective machines
+
+If you want to update config files for the beats services and the changes to take effect on all VMs across your cloud network you can run update-config.yml.
+
+- Update the desired config file in /etc/ansible/roles/<desired_beat>/files/
+- Run the update-config.yml playbook with a supplied tag for beat service to be updated. You can update one, multiple, or all machines this way. Ansible will reload the config file and restart the service.
 
 
+### Example full setup
 
+Run these following commands to perform a full setup of ELK stack server monitoring DVWA virtual machines from workstation to deployment. (This is assuming you have an Ansible docker container on your jump-box set up)
 
+- `ssh redadmin@jumpbox_publicip`
+- `sudo docker container list -a` (Locate the ansible container on jump-box)
+- `sudo docker start <container_name>`
+- `sudo docker attach <container_name>`
+- `cd /etc/ansible`
+-  **Edit all required files to unique infrastructure of your cloud network (hosts, and each beats config file)**
+- `ansible-playbook setup.yml` 
 
-
-
+**Note** : Below are screenshots of successful installation:
 
 The following screenshot displays the result of running `docker ps` on the Elk-Server after successfully configuring the ELK instance.
 
