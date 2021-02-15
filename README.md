@@ -21,11 +21,8 @@ This document contains the following details:
 The main purpose of this network is to expose a load-balanced and monitored instance of DVWA, the Damn Vulnerable Web Application.
 
 Load balancing ensures that the application will be highly available, in addition to restricting access to the network.
-- _TODO: What aspect of security do load balancers protect? What is the advantage of a jump box?_
 
-Integrating an ELK server allows users to easily monitor the vulnerable VMs for changes to the _____ and system _____.
-- _TODO: What does Filebeat watch for?_
-- _TODO: What does Metricbeat record?_
+Integrating an ELK server allows users to easily monitor the vulnerable VMs for changes to the essential system files, suspicious web activity, up-time and system metrics.
 
 The configuration details of each machine may be found below.
 
@@ -49,6 +46,8 @@ Machines within the rednet network can only be accessed by ssh.
 
 A summary of the access policies in place can be found in the table below.
 
+A load balancer is utilized to allow http access to the DVWA only from your supplied public IP.
+
 | Name              | Publicly Accessible | Allowed IP Addresses            |
 |-------------------|---------------------|---------------------------------|
 | Jump-Box          | Yes                 | workstation public IP port 22   |
@@ -58,7 +57,7 @@ A summary of the access policies in place can be found in the table below.
 
 ### Elk Configuration
 
-Ansible was used to automate configuration of the ELK machine. This allows the use of infrastructure as code. Allowing the user to scale their network as large as they want. This also grants the user the ability to modify only a few files and change the configuration of every machine on the network.
+Ansible was used to automate configuration of the ELK machine and multiple DVWA machines. This allows the use of infrastructure as code. Allowing the user to scale their network as large as they want. This also grants the user the ability to modify only a few files and change the configuration of every machine on the network.
 
 
 The playbook implements the following tasks:
@@ -69,9 +68,8 @@ The playbook implements the following tasks:
 - Configures each machine to send logs to the ELK-Server
 - Updates each machine to current packages to ensure system security
 
-The following screenshot displays the result of running `docker ps` on the Elk-Server after successfully configuring the ELK instance.
 
-![Elk container Image](Images/elk_container.png)
+
 
 ### Target Machines & Beats
 This ELK server is configured to monitor the following machines:
@@ -111,3 +109,16 @@ _TODO: Answer the following questions to fill in the blanks:_
 - _Which URL do you navigate to in order to check that the ELK server is running?
 
 _As a **Bonus**, provide the specific commands the user will need to run to download the playbook, update the files, etc._
+
+
+The following screenshot displays the result of running `docker ps` on the Elk-Server after successfully configuring the ELK instance.
+
+![Elk container Image](Images/elk_container.png)
+
+The following screenshot displays the result of running 'service --status-all | grep beat' on the web VMs 
+
+![Beats Status Image](Images/beats_status.png)
+
+The following screenshot shows the result of running 'docker ps' on the web VMs
+
+![DVWA container Image](Images/dvwa_container.png)
