@@ -89,7 +89,7 @@ We have installed the following Beats on these machines:
 These Beats allow us to collect the following information from each machine:
 - Filebeat: Collects and forwards system log data to Elk-Server
 - Metricbeat: Monitors system metrics like CPU usage, memory, and network acticvity. We have enabled the docker module to watch our DVWA containers as well
-- Auditbeat: Interacts directly with and forwards logs from auditd, a system daemon that watches for system changes. It will log file intregity for files found in /etc /usr/bin /bin /usr/sbin and /sbin
+- Auditbeat: Interacts directly with and forwards logs from auditd, a system daemon that watches for system changes. It will log file integrity for files found in `/etc` `/usr/bin` `/bin` `/usr/sbin` and `/sbin`
 - Packetbeat: Analyzes network traffic between systems, sniffing packets providing user with network information
 - Heartbeat: Monitors up-time of systems. Will ping each machine on the network on a regular schedule and logs repsonses
 
@@ -97,15 +97,15 @@ These Beats allow us to collect the following information from each machine:
 In order to use the playbooks, you will need to have an Ansible control node already configured on your Jump-box. Assuming you have such a control node provisioned: 
 
 SSH into the control node and follow the steps below:
-- Copy the repository(You can omit the Images directory and the readme) to /etc/ansible
+- Copy the repository(You can omit the Images directory and the readme) to `/etc/ansible`
 - Update the hosts file to include the private IPs of your intended elk server and web VMs under [elkserver] and [webservers] and their set admin usernames
 ![Example hosts file](Images/hosts.png)
-- Update the configuration file found in each /etc/ansible/roles/files directory for each beat to include the IP address of your elkserver under Kibana and Outputs categories. Below is an example:
+- Update the configuration file found in each `/etc/ansible/roles/files` directory for each beat to include the IP address of your elkserver under Kibana and Outputs categories. Below is an example:
 ![Example config file](Images/config.png)
 ![Example config file](Images/config2.png)
 - Run the setup.yml playbook, and navigate to http://<elkserver_ip>:5601 and http://<load_balancerip> to check that the installation worked as expected. Kibana and DVWA should load respectively.
 
-**Note** : If heartbeat is intended to be installed modify the heartbeat-config.yml further as such:
+**Note** : If heartbeat is intended to be installed modify the [heartbeat-config.yml](roles/heartbeat/files/heartbeat-config.yml) further as such:
 
 ![Example heartbeat config](Images/heartbeat_config.png)
 
@@ -134,7 +134,7 @@ If you wish to update all your machines at once through apt for the most up to d
 
 If you want to update config files for the beats services and the changes to take effect on all VMs across your cloud network you can run update-config.yml.
 
-- Update the desired config file in /etc/ansible/roles/<desired_beat>/files/
+- Update the desired config file in `/etc/ansible/roles/<desired_beat>/files/`
 - Run the update-config.yml playbook with a supplied tag for beat service to be updated. You can update one, multiple, or all machines this way. Ansible will reload the config file and restart the service.
 
 
@@ -142,7 +142,7 @@ If you want to update config files for the beats services and the changes to tak
 
 Run these following commands to perform a full setup of ELK stack server monitoring DVWA virtual machines from workstation to deployment. (This is assuming you have an Ansible docker container on your jump-box set up)
 
-- `ssh redadmin@jumpbox_publicip`
+- `ssh redadmin@<jumpbox_public_ip>`
 - `sudo docker container list -a` (Locate the ansible container on jump-box)
 - `sudo docker start <container_name>`
 - `sudo docker attach <container_name>`
