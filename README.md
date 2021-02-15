@@ -109,6 +109,7 @@ SSH into the control node and follow the steps below:
 
 ![Example heartbeat config](Images/heartbeat_config.png)
 
+### Customizing the playbook
 
 You can specify what parts of the playbook to run using the supplied tags:
 
