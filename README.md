@@ -69,8 +69,6 @@ The playbook implements the following tasks:
 - Updates each machine to current packages to ensure system security
 
 
-
-
 ### Target Machines & Beats
 This ELK server is configured to monitor the following machines:
  
@@ -95,30 +93,38 @@ These Beats allow us to collect the following information from each machine:
 - Packetbeat: Analyzes network traffic between systems, sniffing packets providing user with network information
 - Heartbeat: Monitors up-time of systems. Will ping each machine on the network on a regular schedule and logs repsonses
 
-### Using the Playbook
-In order to use the playbook, you will need to have an Ansible control node already configured. Assuming you have such a control node provisioned: 
+### Using the Playbooks
+In order to use the playbookw, you will need to have an Ansible control node already configured on your Jump-box. Assuming you have such a control node provisioned: 
 
 SSH into the control node and follow the steps below:
-- Copy the _____ file to _____.
-- Update the _____ file to include...
-- Run the playbook, and navigate to ____ to check that the installation worked as expected.
+- Copy the repository(You can omit the Images directory and the readme) to /etc/ansible
+- Update the hosts file to include the private IPs of your intended elk server and web VMs under [elkserver] and [webservers]
+- Update the configuration file found in each /etc/ansible/roles/files directory for each beat to include the IP address of your elkserver under Kibana and Outputs categories. Below is an example:
+![Example config file](Images/config.png)
+![Example config file](Images/config2.png)
+- Run the setup.yml playbook, and navigate to http://<elkserverip>:5601 and http://<load_balancerip> to check that the installation worked as expected. Kibana and DVWA should load respectively.
 
-_TODO: Answer the following questions to fill in the blanks:_
-- _Which file is the playbook? Where do you copy it?_
-- _Which file do you update to make Ansible run the playbook on a specific machine? How do I specify which machine to install the ELK server on versus which to install Filebeat on?_
-- _Which URL do you navigate to in order to check that the ELK server is running?
+You can specify what parts of the playbook to run using the supplied tags:
 
-_As a **Bonus**, provide the specific commands the user will need to run to download the playbook, update the files, etc._
+- elk : Sets up just the ELK server
+- heartbeat : Installs heartbeat on ELK server 
+- dvwa: Sets up just the DVWA docker container on the web VMs
+- beats: Installs filebeat, auditbeat, packetbeat, and metricbeat on web VMs
 
+**Note** : 
+If you wish to just install any combination of beats and not the above five all at once you can use the custom.yml playbook. 
+
+- First run the setup.yml playbook using tags elk and dvwa as such : `ansible-playbook setup.yml -t=elk,dvwa`
+- Then run `ansible-playbook custom.yml -t=<any_combination_of_beats_you_want>` 
 
 The following screenshot displays the result of running `docker ps` on the Elk-Server after successfully configuring the ELK instance.
 
 ![Elk container Image](Images/elk_container.png)
 
-The following screenshot displays the result of running 'service --status-all | grep beat' on the web VMs 
+The following screenshot displays the result of running `service --status-all | grep beat` on the web VMs 
 
 ![Beats Status Image](Images/beats_status.png)
 
-The following screenshot shows the result of running 'docker ps' on the web VMs
+The following screenshot shows the result of running `docker ps` on the web VMs
 
 ![DVWA container Image](Images/dvwa_container.png)
