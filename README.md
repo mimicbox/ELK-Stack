@@ -94,15 +94,21 @@ These Beats allow us to collect the following information from each machine:
 - Heartbeat: Monitors up-time of systems. Will ping each machine on the network on a regular schedule and logs repsonses
 
 ### Using the Playbooks
-In order to use the playbookw, you will need to have an Ansible control node already configured on your Jump-box. Assuming you have such a control node provisioned: 
+In order to use the playbooks, you will need to have an Ansible control node already configured on your Jump-box. Assuming you have such a control node provisioned: 
 
 SSH into the control node and follow the steps below:
 - Copy the repository(You can omit the Images directory and the readme) to /etc/ansible
-- Update the hosts file to include the private IPs of your intended elk server and web VMs under [elkserver] and [webservers]
+- Update the hosts file to include the private IPs of your intended elk server and web VMs under [elkserver] and [webservers] and their set admin usernames
+![Example hosts file](Images/hosts.png)
 - Update the configuration file found in each /etc/ansible/roles/files directory for each beat to include the IP address of your elkserver under Kibana and Outputs categories. Below is an example:
 ![Example config file](Images/config.png)
 ![Example config file](Images/config2.png)
 - Run the setup.yml playbook, and navigate to http://<elkserverip>:5601 and http://<load_balancerip> to check that the installation worked as expected. Kibana and DVWA should load respectively.
+
+**Note** : If heartbeat is intended to be installed modify the heartbeat-config.yml further as such:
+
+![Example heartbeat config](Images/heartbeat_config.png)
+
 
 You can specify what parts of the playbook to run using the supplied tags:
 
@@ -115,7 +121,15 @@ You can specify what parts of the playbook to run using the supplied tags:
 If you wish to just install any combination of beats and not the above five all at once you can use the custom.yml playbook. 
 
 - First run the setup.yml playbook using tags elk and dvwa as such : `ansible-playbook setup.yml -t=elk,dvwa`
-- Then run `ansible-playbook custom.yml -t=<any_combination_of_beats_you_want>` 
+- Then run `ansible-playbook custom.yml -t=<any_combination_of_beats_you_want>` (the flag `-t=filebeat,heartbeat` will install just filebeat and heartbeat as an example)
+
+
+
+
+
+
+
+
 
 The following screenshot displays the result of running `docker ps` on the Elk-Server after successfully configuring the ELK instance.
 
