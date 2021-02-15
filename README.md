@@ -103,7 +103,7 @@ SSH into the control node and follow the steps below:
 - Update the configuration file found in each /etc/ansible/roles/files directory for each beat to include the IP address of your elkserver under Kibana and Outputs categories. Below is an example:
 ![Example config file](Images/config.png)
 ![Example config file](Images/config2.png)
-- Run the setup.yml playbook, and navigate to http://<elkserverip>:5601 and http://<load_balancerip> to check that the installation worked as expected. Kibana and DVWA should load respectively.
+- Run the setup.yml playbook, and navigate to http://<elkserver_ip>:5601 and http://<load_balancerip> to check that the installation worked as expected. Kibana and DVWA should load respectively.
 
 **Note** : If heartbeat is intended to be installed modify the heartbeat-config.yml further as such:
 
