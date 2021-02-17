@@ -57,7 +57,7 @@ A load balancer is utilized to allow http access to the DVWA only from your supp
 
 # Elk Stack Configuration
 
-**[Ansible]** was used to automate configuration of the ELK machine and multiple DVWA machines. This allows the use of infrastructure as code. Allowing the user to scale their network as large as they want. This also grants the user the ability to modify only a few files and change the configuration of every machine on the network.
+**[Ansible]**(https://www.ansible.com/) was used to automate configuration of the ELK machine and multiple DVWA machines. This allows the use of infrastructure as code. Allowing the user to scale their network as large as they want. This also grants the user the ability to modify only a few files and change the configuration of every machine on the network.
 
 
 The playbook implements the following tasks:
@@ -169,4 +169,4 @@ The following screenshot shows the result of running `docker ps` on the web VMs
 
 
 
-    [Ansible]: https://www.ansible.com/
+    
