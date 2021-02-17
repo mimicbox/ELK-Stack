@@ -1,0 +1,65 @@
+---
+  - name: Update Metricbeat
+    hosts: webservers
+    remote_user: redadmin
+    become: yes
+    tags: metricbeat
+    tasks:
+      - copy:
+          src: /etc/ansible/roles/metricbeat/files/metricbeat-config.yml
+          dest: /etc/metricbeat/metricbeat.yml
+      - service:
+          name: metricbeat
+          state: restarted
+
+  - name: Update Filebeat
+    hosts: webservers
+    remote_user: redadmin
+    become: yes
+    tags: filebeat
+    tasks:
+      - copy:
+          src: /etc/ansible/roles/filebeat/files/filebeat-config.yml
+          dest: /etc/filebeat/filebeat.yml
+      - service:
+          name: filebeat
+          state: restarted
+
+  - name: Update Heartbeat
+    hosts: elkserver
+    remote_user: elkadmin
+    become: yes
+    tags: heartbeat
+    tasks:
+      - copy:
+          src: /etc/ansible/roles/heartbeat/files/heartbeat-config.yml
+          dest: /etc/heartbeat/heartbeat.yml
+      - service:
+          name: heartbeat-elastic
+          state: restarted
+
+  - name: Update Auditbeat
+    hosts: webservers
+    remote_user: redadmin
+    become: yes
+    tags: auditbeat
+    tasks:
+      - copy:
+          src: /etc/ansible/roles/auditbeat/files/auditbeat-config.yml
+          dest: /etc/auditbeat/auditbeat.yml
+      - service:
+          name: auditbeat
+          state: restarted
+
+  - name: Update Packetbeat
+    hosts: webservers
+    remote_user: redadmin
+    become: yes
+    tags: packetbeat
+    tasks:
+      - copy:
+          src: /etc/ansible/roles/packetbeat/files/packetbeat-config.yml
+          dest: /etc/packetbeat/packetbeat.yml
+      - service:
+          name: packetbeat
+          state: restarted         

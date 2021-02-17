@@ -1,0 +1,43 @@
+--- 
+   
+     
+      #The container has apache2 and will cause conflicts if not removed
+    - name: Uninstall apache2 if present
+      apt:
+       name: apache2
+       state: absent
+
+    - name: Install docker.io
+      apt:
+        name: docker.io
+        state: present
+    
+    - name: Install python3-pip
+      apt:
+        name: python3-pip
+        state: present
+
+    - name: Install Docker Module for Python
+      pip:
+        name: docker
+        state: present 
+    
+    - name: Pull DVWA Docker image
+      docker_image:
+        name: "{{ container_image }}"
+        source: pull
+
+
+    - name: Create DVWA container
+      docker_container:
+        name: "{{ container_name }}"
+        image: "{{ container_image }}"
+        state: started
+        restart_policy: always
+        published_ports: 80:80
+      
+    
+    - name: Enable docker
+      systemd:
+         name: docker
+         enabled: yes
