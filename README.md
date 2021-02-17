@@ -97,10 +97,10 @@ These Beats allow us to collect the following information from each machine:
 In order to use the playbooks, you will need to have an Ansible control node already configured on your Jump-box. Assuming you have such a control node provisioned: 
 
 SSH into the control node and follow the steps below:
-- Copy the entire [ansible](ansible/) directory to your ansible control node to reflect this direcotry structure : `/etc/ansible`(replacing the ansible folder all ready in place)
+- Copy the entire [ansible](ansible/) directory to your ansible control node to reflect this directory structure : `/etc/ansible`(replacing the ansible folder all ready in place)
 - Update the hosts file to include the private IPs of your intended elk server and web VMs under [elkserver] and [webservers] and their set admin usernames
 ![Example hosts file](Images/hosts.png)
-- Update the configuration file found in each `/etc/ansible/roles/files` directory for each beat to include the IP address of your elkserver under Kibana and Outputs categories. Below is an example:
+- Update the configuration file found in each `/etc/ansible/roles/<beat>/files/` directory for each beat to include the IP address of your elkserver under Kibana and Outputs categories. Below is an example:
 ![Example config file](Images/config.png)
 ![Example config file](Images/config2.png)
 - Run the [setup.yml](ansible/setup.yml) playbook, and navigate to http://<elkserver_ip>:5601 and http://<load_balancerip> to check that the installation worked as expected. Kibana and DVWA should load respectively.
