@@ -126,7 +126,7 @@ You can specify what parts of the playbook to run using the supplied tags:
 If you wish to just install any combination of beats and not the above five all at once you can use the [custom.yml](custom.yml) playbook. 
 
 - First run the [setup.yml](setup.yml) playbook using tags elk and dvwa as such : `ansible-playbook setup.yml -t=elk,dvwa`
-- Then run `ansible-playbook custom.yml -t=<any_combination_of_beats_you_want>` (the flag `-t=filebeat,heartbeat` will install just filebeat and heartbeat as an example)
+- Then run `ansible-playbook custom.yml -t=<any_combination_of_beats_you_want>` (for example the flag `-t=filebeat,heartbeat` will install just filebeat and heartbeat)
 
 # Automating cloud network updates
 
@@ -166,6 +166,9 @@ The following screenshot displays the result of running `service --status-all | 
 The following screenshot shows the result of running `docker ps` on the web VMs
 
 ![DVWA container Image](Images/dvwa_container.png)
+
+
+
 
 
 
