@@ -169,4 +169,4 @@ The following screenshot shows the result of running `docker ps` on the web VMs
 
 
 
-    [ansible]: https://www.ansible.com/
+    [Ansible]: https://www.ansible.com/
