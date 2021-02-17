@@ -57,7 +57,7 @@ A load balancer is utilized to allow http access to the DVWA only from your supp
 
 # Elk Stack Configuration
 
-**[Ansible]**(https://www.ansible.com/) was used to automate configuration of the ELK machine and multiple DVWA machines. This allows the use of infrastructure as code. Allowing the user to scale their network as large as they want. This also grants the user the ability to modify only a few files and change the configuration of every machine on the network.
+**[Ansible](https://www.ansible.com/)** was used to automate configuration of the ELK machine and multiple DVWA machines. This allows the use of infrastructure as code. Allowing the user to scale their network as large as they want. This also grants the user the ability to modify only a few files and change the configuration of every machine on the network.
 
 
 The playbook implements the following tasks:
@@ -87,11 +87,11 @@ We have installed the following Beats on these machines:
 **Note**: The ELK-Server has heartbeat installed for up-time metrics as it is advised to install this on a machine not intended to be monitored.
 
 These Beats allow us to collect the following information from each machine:
-- Filebeat: Collects and forwards system log data to Elk-Server
-- Metricbeat: Monitors system metrics like CPU usage, memory, and network acticvity. We have enabled the docker module to watch our DVWA containers as well
-- Auditbeat: Interacts directly with and forwards logs from auditd, a system daemon that watches for system changes. It will log file integrity for files found in `/etc` `/usr/bin` `/bin` `/usr/sbin` and `/sbin`
-- Packetbeat: Analyzes network traffic between systems, sniffing packets providing user with network information
-- Heartbeat: Monitors up-time of systems. Will ping each machine on the network on a regular schedule and logs repsonses
+- **[Filebeat](https://www.elastic.co/beats/filebeat)**: Collects and forwards system log data to Elk-Server
+- **[Metricbeat](https://www.elastic.co/beats/metricbeat)**: Monitors system metrics like CPU usage, memory, and network acticvity. We have enabled the docker module to watch our DVWA containers as well
+- **[Auditbeat](https://www.elastic.co/beats/auditbeat)**: Interacts directly with and forwards logs from auditd, a system daemon that watches for system changes. It will log file integrity for files found in `/etc` `/usr/bin` `/bin` `/usr/sbin` and `/sbin`
+- **[Packetbeat](https://www.elastic.co/beats/packetbeat)**: Analyzes network traffic between systems, sniffing packets providing user with network information
+- **[Heartbeat](https://www.elastic.co/beats/heartbeat)**: Monitors up-time of systems. Will ping each machine on the network on a regular schedule and logs repsonses
 
 # Using the Playbooks
 In order to use the playbooks, you will need to have an Ansible control node already configured on your Jump-box. Assuming you have such a control node provisioned: 
