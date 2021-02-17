@@ -1,4 +1,4 @@
-## Automated ELK Stack Deployment
+# Automated ELK Stack Deployment
 
 The files in this repository were used to configure the network depicted below.
 
@@ -16,7 +16,7 @@ This document contains the following details:
 - How to Use the Ansible Build
 
 
-### Description of the Topology
+# Description of the Topology
 
 The main purpose of this network is to expose a load-balanced and monitored instance of DVWA, the Damn Vulnerable Web Application.
 
@@ -36,7 +36,7 @@ The configuration details of each machine may be found below.
 | DVWA-Backup2 | DVWA server                                | 10.0.0.10          | Linux (Ubuntu 18.04 LTS) |
 | ELK-Server   | Hosts ELK docker container and heartbeat   | 10.1.0.4           | Linux (Ubuntu 18.04 LTS) |
 
-### Access Policies
+# Access Policies
 
 The machines on the internal rednet network are not exposed to the public Internet. 
 
@@ -55,9 +55,9 @@ A load balancer is utilized to allow http access to the DVWA only from your supp
 | Red_Load_Balancer | Yes                 | workstation public IP port 80   |
 | ELK-Server        | Yes                 | workstation public IP port 5601 |
 
-### Elk Configuration
+# Elk Stack Configuration
 
-Ansible was used to automate configuration of the ELK machine and multiple DVWA machines. This allows the use of infrastructure as code. Allowing the user to scale their network as large as they want. This also grants the user the ability to modify only a few files and change the configuration of every machine on the network.
+[Ansible] was used to automate configuration of the ELK machine and multiple DVWA machines. This allows the use of infrastructure as code. Allowing the user to scale their network as large as they want. This also grants the user the ability to modify only a few files and change the configuration of every machine on the network.
 
 
 The playbook implements the following tasks:
@@ -69,7 +69,7 @@ The playbook implements the following tasks:
 - Updates each machine to current packages to ensure system security
 
 
-### Target Machines & Beats
+# Target Machines & Beats
 This ELK server is configured to monitor the following machines:
  
 - Web-1 10.0.0.5
@@ -93,7 +93,7 @@ These Beats allow us to collect the following information from each machine:
 - Packetbeat: Analyzes network traffic between systems, sniffing packets providing user with network information
 - Heartbeat: Monitors up-time of systems. Will ping each machine on the network on a regular schedule and logs repsonses
 
-### Using the Playbooks
+# Using the Playbooks
 In order to use the playbooks, you will need to have an Ansible control node already configured on your Jump-box. Assuming you have such a control node provisioned: 
 
 SSH into the control node and follow the steps below:
@@ -109,7 +109,7 @@ SSH into the control node and follow the steps below:
 
 ![Example heartbeat config](Images/heartbeat_config.png)
 
-### Customizing the playbook
+# Customizing the playbook
 
 You can specify what parts of the playbook to run using the supplied tags:
 
@@ -128,7 +128,7 @@ If you wish to just install any combination of beats and not the above five all 
 - First run the [setup.yml](setup.yml) playbook using tags elk and dvwa as such : `ansible-playbook setup.yml -t=elk,dvwa`
 - Then run `ansible-playbook custom.yml -t=<any_combination_of_beats_you_want>` (the flag `-t=filebeat,heartbeat` will install just filebeat and heartbeat as an example)
 
-### Automating cloud network updates
+# Automating cloud network updates
 
 If you wish to update all your machines at once through apt for the most up to date packages on your cloud network you can also use the Ansible provisioner to do so!
 
@@ -141,7 +141,7 @@ If you want to update config files for the beats services and the changes to tak
 - Run the update-config.yml playbook with a supplied tag for beat service to be updated. You can update one, multiple, or all machines this way. Ansible will reload the config file and restart the service.
 
 
-### Example full setup
+# Example full setup
 
 Run these following commands to perform a full setup of ELK stack server monitoring DVWA virtual machines from workstation to deployment. (This is assuming you have an Ansible docker container on your jump-box set up)
 
@@ -166,3 +166,7 @@ The following screenshot displays the result of running `service --status-all | 
 The following screenshot shows the result of running `docker ps` on the web VMs
 
 ![DVWA container Image](Images/dvwa_container.png)
+
+
+
+    [ansible]: https://www.ansible.com/
