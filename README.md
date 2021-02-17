@@ -1,11 +1,9 @@
 # Automated ELK Stack Deployment
 
-The files in this repository were used to configure the network depicted below.
+The files in this repository can be used to configure an ELK stack, beats monitoring systems, and DVWA serving machines.
+This can be scaled according to needs.
 
-![Red Team Cloud Diagram](Images/red_team_cloud_network.png)
-
-These files have been tested and used to generate a live ELK deployment on Azure. They can be used to either recreate the entire deployment pictured above. Alternatively, setup.yml can be modified or run with tags to install certain pieces of the infrastructure to your liking.
-
+These files have been tested and used to generate a live ELK deployment on Azure. They can be used to recreate the entire deployment pictured below. Alternatively, [setup.yml](setup.yml) can be modified or run with tags to install certain pieces of the infrastructure to your liking.
 
 This document contains the following details:
 - Description of the Topology
@@ -17,6 +15,8 @@ This document contains the following details:
 
 
 # Description of the Topology
+
+![Red Team Cloud Diagram](Images/red_team_cloud_network.png)
 
 The main purpose of this network is to expose a load-balanced and monitored instance of DVWA, the Damn Vulnerable Web Application.
 
@@ -57,7 +57,7 @@ A load balancer is utilized to allow http access to the DVWA only from your supp
 
 # Elk Stack Configuration
 
-[Ansible] was used to automate configuration of the ELK machine and multiple DVWA machines. This allows the use of infrastructure as code. Allowing the user to scale their network as large as they want. This also grants the user the ability to modify only a few files and change the configuration of every machine on the network.
+**[Ansible]** was used to automate configuration of the ELK machine and multiple DVWA machines. This allows the use of infrastructure as code. Allowing the user to scale their network as large as they want. This also grants the user the ability to modify only a few files and change the configuration of every machine on the network.
 
 
 The playbook implements the following tasks:
