@@ -1,6 +1,6 @@
 # Automated ELK Stack Deployment
 
-The files in this repository can be used to configure an ELK stack, beats monitoring systems, and DVWA serving machines.
+The files in this repository can be used to configure an ELK stack, beats monitoring systems, and web severs deployed with DVWA for testing logs.
 This can be scaled according to needs.
 
 These files have been tested and used to generate a live ELK deployment on Azure. They can be used to recreate the entire deployment pictured below. Alternatively, [setup.yml](ansible/setup.yml) can be modified or run with tags to install certain pieces of the infrastructure to your liking.
